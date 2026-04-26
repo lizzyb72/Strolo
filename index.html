@@ -59,21 +59,7 @@
   }
   button.primary:hover { background: #3367d6; }
 
-  details { font-size: 13px; }
-  summary { color: #888; cursor: pointer; user-select: none; }
-  summary:hover { color: #aaa; }
 
-  .key-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-  .key-row label { color: #888; font-size: 12px; min-width: 90px; }
-  .key-row input { font-size: 12px; padding: 6px 10px; flex: 1; min-width: 200px; }
-  .key-link { font-size: 11px; color: #4285f4; text-decoration: none; white-space: nowrap; }
-  .key-link:hover { text-decoration: underline; }
 
   #image-area {
     flex: 1;
@@ -151,26 +137,14 @@
     <input id="destination" type="text" placeholder="🏁 Destination" />
     <button class="primary" onclick="getRoute()">Get Route</button>
   </div>
-  <details>
-    <summary>API Keys — free, required (click to expand)</summary>
-    <div class="key-row">
-      <label>ORS Key</label>
-      <input id="ors-key" type="text" placeholder="OpenRouteService API key" />
-      <a class="key-link" href="https://openrouteservice.org/dev/#/signup" target="_blank">Get free key</a>
-    </div>
-    <div class="key-row">
-      <label>Mapillary Token</label>
-      <input id="map-key" type="text" placeholder="Mapillary access token" />
-      <a class="key-link" href="https://www.mapillary.com/developer/api-documentation" target="_blank">Get free token</a>
-    </div>
-  </details>
+
 </div>
 
 <div id="image-area">
   <img id="street-img" alt="Street view" />
   <div id="overlay">
     <div id="overlay-icon">🚶</div>
-    <div id="overlay-msg">Welcome to Strolo. Enter a start and destination above, add your free API keys, then click Get Route.</div>
+    <div id="overlay-msg">Enter a start and destination above, then click Get Route.</div>
   </div>
 </div>
 
@@ -211,12 +185,10 @@ async function geocode(address, key) {
 async function getRoute() {
   const origin = document.getElementById('origin').value.trim();
   const dest   = document.getElementById('destination').value.trim();
-  const orsKey = document.getElementById('ors-key').value.trim();
-  const mapKey = document.getElementById('map-key').value.trim();
+  const orsKey = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImE1NDM1NzBkMWUwNzQ1ZGRhNDU5NGNjNDFlMjJjZDA2IiwiaCI6Im11cm11cjY0In0=';
+  const mapKey = 'MLY|27150461231204436|c70be1ec9d2410429c84a26d0130bb87';
 
   if (!origin || !dest) return setStatus('Enter a start and destination.');
-  if (!orsKey)          return setStatus('eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImE1NDM1NzBkMWUwNzQ1ZGRhNDU5NGNjNDFlMjJjZDA2IiwiaCI6Im11cm11cjY0In0=');
-  if (!mapKey)          return setStatus('MLY|27150461231204436|c70be1ec9d2410429c84a26d0130bb87');
 
   reset();
   setOverlay('🗺️', 'Getting route…');
