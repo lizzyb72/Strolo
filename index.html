@@ -185,8 +185,8 @@ async function geocode(address, key) {
 async function getRoute() {
   const origin = document.getElementById('origin').value.trim();
   const dest   = document.getElementById('destination').value.trim();
-  const orsKey = 'YOUR_ORS_KEY';
-  const mapKey = 'YOUR_MAPILLARY_TOKEN';
+  const orsKey = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImE1NDM1NzBkMWUwNzQ1ZGRhNDU5NGNjNDFlMjJjZDA2IiwiaCI6Im11cm11cjY0In0=';
+  const mapKey = 'MLY|27150461231204436|c70be1ec9d2410429c84a26d0130bb87';
 
   if (!origin || !dest) return setStatus('Enter a start and destination.');
 
