@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treadmill Walker</title>
+<title>Strolo</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -146,8 +146,9 @@
 
 <div id="top-bar">
   <div class="row">
-    <input id="origin"      type="text" placeholder="Starting point" />
-    <input id="destination" type="text" placeholder="Destination" />
+    <span style="font-size:18px;font-weight:800;letter-spacing:-0.5px;color:#fff;padding-right:4px;">Strolo</span>
+    <input id="origin"      type="text" placeholder="📍 Starting point" />
+    <input id="destination" type="text" placeholder="🏁 Destination" />
     <button class="primary" onclick="getRoute()">Get Route</button>
   </div>
   <details>
@@ -169,7 +170,7 @@
   <img id="street-img" alt="Street view" />
   <div id="overlay">
     <div id="overlay-icon">🚶</div>
-    <div id="overlay-msg">Enter a start and destination above. Add your free API keys, then click Get Route.</div>
+    <div id="overlay-msg">Welcome to Strolo. Enter a start and destination above, add your free API keys, then click Get Route.</div>
   </div>
 </div>
 
