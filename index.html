@@ -228,7 +228,7 @@ async function getRoute() {
 async function loadMapillaryImages(coords, token) {
   const lats = coords.map(c => c.lat);
   const lngs = coords.map(c => c.lng);
-  const pad  = 0.001;
+  const pad  = 0.003; // wider search area
   const bbox = [
     (Math.min(...lngs) - pad).toFixed(6),
     (Math.min(...lats) - pad).toFixed(6),
@@ -244,7 +244,6 @@ async function loadMapillaryImages(coords, token) {
 
   const res = await fetch(url);
   if (!res.ok) {
-    const body = await res.text().catch(() => '');
     throw new Error(`Mapillary error (${res.status}) — check your access token.`);
   }
   const data   = await res.json();
@@ -259,7 +258,7 @@ async function loadMapillaryImages(coords, token) {
     throw new Error('No street imagery found here. Mapillary coverage may be limited — try a busier street or city centre.');
   }
 
-  // Sample route every ~15 m, match each sample to nearest image within 25 m
+  // Sample route every ~15 m, match each sample to nearest image within 50 m
   const sampled = sampleRoute(coords, 15);
   const matched = [];
 
@@ -269,14 +268,14 @@ async function loadMapillaryImages(coords, token) {
       const d = dist(pt, img);
       if (d < bestDist) { bestDist = d; best = img; }
     }
-    if (best && bestDist < 25) matched.push(best);
+    if (best && bestDist < 50) matched.push(best); // loosened from 25m to 50m
   }
 
   // Remove consecutive duplicates
   const deduped = matched.filter((img, i) => i === 0 || img.id !== matched[i-1].id);
 
-  if (!deduped.length) {
-    throw new Error('Images found nearby but could not be matched to the route. Try a different street.');
+  if (deduped.length < 3) {
+    throw new Error(`Only ${deduped.length} image(s) matched this route — Mapillary coverage is too sparse here. Try a main road or different area.`);
   }
 
   imageSequence = deduped;
@@ -374,7 +373,7 @@ function hideOverlay() {
 function setStatus(msg) { document.getElementById('status').textContent = msg; }
 
 function updateProgress() {
-  if (!imageSequence.length) return;
+  if (!imageSequence.length || imageSequence.length < 2) return;
   const pct = Math.round((currentIndex / (imageSequence.length - 1)) * 100);
   document.getElementById('progress').textContent = `${pct}%`;
 }
