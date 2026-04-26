@@ -215,8 +215,8 @@ async function getRoute() {
   const mapKey = document.getElementById('map-key').value.trim();
 
   if (!origin || !dest) return setStatus('Enter a start and destination.');
-  if (!orsKey)          return setStatus('Enter your OpenRouteService API key.');
-  if (!mapKey)          return setStatus('Enter your Mapillary access token.');
+  if (!orsKey)          return setStatus('eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImE1NDM1NzBkMWUwNzQ1ZGRhNDU5NGNjNDFlMjJjZDA2IiwiaCI6Im11cm11cjY0In0=');
+  if (!mapKey)          return setStatus('MLY|27150461231204436|c70be1ec9d2410429c84a26d0130bb87');
 
   reset();
   setOverlay('🗺️', 'Getting route…');
